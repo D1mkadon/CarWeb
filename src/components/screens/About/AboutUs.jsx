@@ -22,7 +22,15 @@ const AboutUs = () => {
         </motion.div>
       </div>
       <Divider sx={{ margin: " 0" }} />
-      <Container className={styles.cont} maxWidth="xl">
+      <Container
+        sx={{
+          display: "flex",
+          marginTop: "10vh",
+          gap: "35px",
+          flexWrap: "wrap",
+        }}
+        maxWidth="xl"
+      >
         <div className={styles.card}>
           <RecommendIcon color="secondary" sx={{ fontSize: 50 }} />
           <h3>Excellent Design</h3>

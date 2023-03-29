@@ -18,6 +18,8 @@ const nextConfig = {
       "media.autoexpress.co.uk",
       "ecomento.de",
       "www.topgear.com",
+      "www.tuningblog.eu",
+      "assets.adac.de",
     ],
   },
 };
