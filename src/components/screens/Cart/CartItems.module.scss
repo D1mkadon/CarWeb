@@ -1,0 +1,42 @@
+.cartItemBlock {
+  display: flex;
+  margin: 3vh;
+  width: 100%;
+}
+.name {
+  font-size: 24px;
+  padding: 0 4vh;
+  font-weight: normal;
+  width: 20%;
+}
+.CartTextBlock {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.totalPrice {
+  font-weight: bold;
+}
+.priceForOne {
+  color: grey;
+  font-size: 18px;
+}
+.pricePOne {
+  font-size: 18px;
+}
+.parentP {
+  flex-direction: column;
+  display: flex;
+}
+.image {
+  box-shadow: 2px 2px 3px 2px black;
+  border-radius: 25px;
+}
+.parentButtons {
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

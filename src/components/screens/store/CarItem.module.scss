@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400&display=swap");
+.btn {
+  font-weight: bold;
+  padding: 5px 20px;
+  border: 1px solid transparent;
+  background-color: #111;
+  color: #fff;
+  border-radius: 50px;
+}
+.btn:hover {
+  border: 1px solid #111;
+  background-color: aquamarine;
+  color: #111;
+}
+.btn:focus {
+  background-color: transparent;
+  color: #111;
+  border: 1px solid #111;
+}
+.textDiv {
+  padding: 20px;
+}
+.currency {
+  margin: 10px 0;
+}
+.CarItem {
+  font-family: "Roboto Mono", monospace;
+  max-width: 450px;
+  text-align: center;
+  color: #fff;
+  background-color: #1d1d1d;
+  border-radius: 30px;
+  box-shadow: 2px 2px 3px 2px black;
+  &:hover {
+    scale: 1.03;
+  }
+}
+.image {
+  background-size: cover;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 300px;
+  scale: 1;
+}
+.cardLink:hover {
+  scale: 1.5;
+  opacity: 0.8;
+}

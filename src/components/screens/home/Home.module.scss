@@ -1,0 +1,95 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+}
+.MainImage {
+  width: 80%;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background: url("./MainCar.webp") 0 0/100% auto no-repeat;
+  background-position: 50% 65%;
+}
+.button {
+  background-color: transparent;
+}
+.BlockSecondImage {
+  margin: 6vh;
+  height: 60vh;
+  width: 80%;
+}
+.SecondImage {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  background: url("./SecondaryCar.png") 50% 0 no-repeat;
+  height: 100%;
+}
+.LeftSmallBlocks {
+  max-width: 33%;
+  min-width: 20%;
+  padding-bottom: 5vh;
+}
+.leftP {
+  width: 100%;
+  color: grey;
+  font-size: 18px;
+}
+.LeftH4 {
+  color: aquamarine;
+  margin: 1vh 0;
+}
+.LeftH2 {
+  letter-spacing: 5px;
+  margin-bottom: 1.5vh;
+  font-size: 22px;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+.RightBlock {
+  width: 34%;
+  max-height: 100%;
+  overflow: hidden;
+  padding: 3vh;
+  background-color: rgb(24, 24, 24);
+}
+.rightSmallDiv {
+  gap: 30px;
+  display: flex;
+  margin-top: 10%;
+  padding: 5%;
+}
+.Background {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    173deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(28, 28, 28, 1) 57%,
+    rgba(28, 28, 28, 1) 100%
+  );
+  margin: 0;
+  border-bottom: 1px solid #fff;
+}
+.SmallBackground {
+  width: 100%;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    173deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(28, 28, 28, 1) 57%,
+    rgba(28, 28, 28, 1) 100%
+  );
+}

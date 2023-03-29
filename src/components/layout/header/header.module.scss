@@ -1,0 +1,47 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  > a {
+    color: #fff;
+    line-height: 72px;
+    margin: 0 10px;
+    transition: color 0.4s ease-in-out;
+    padding: 20px 0;
+    &:hover,
+    &.active {
+      color: rgb(127, 255, 212);
+    }
+  }
+}
+.div {
+  width: 100%;
+  background-color: #1c1c1c;
+  position: fixed;
+
+  z-index: 3;
+}
+.cartBlock {
+  margin-right: 10vh;
+  margin-left: auto;
+  position: relative;
+  cursor: pointer;
+}
+.logo {
+  margin-right: auto;
+}
+.cartCircle {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  font-size: 13px;
+  background: red;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+}

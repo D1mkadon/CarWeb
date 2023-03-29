@@ -1,0 +1,25 @@
+.carBlock {
+  margin-top: 10vh;
+  //   flex-direction: column;
+  display: flex;
+  //   align-items: center;
+}
+.Image {
+  border-radius: 30px;
+  border: 1px solid #111;
+  box-shadow: 1px 1px 4px 1px black;
+}
+.RightBlock {
+  padding: 30px;
+  width: 100%;
+  text-align: center;
+}
+.back:hover {
+  color: aquamarine;
+}
+.cont {
+  margin: 10px auto;
+}
+.ImageDiv {
+  max-width: 50%;
+}
