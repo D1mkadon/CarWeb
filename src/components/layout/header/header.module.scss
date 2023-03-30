@@ -16,6 +16,9 @@
     }
   }
 }
+.bars {
+  display: none;
+}
 .div {
   width: 100%;
   background-color: #1c1c1c;
@@ -37,11 +40,37 @@
   top: -5px;
   right: -5px;
   font-size: 13px;
-  background: red;
+  background: aquamarine;
   height: 18px;
   width: 18px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  color: #fff;
+  color: #111;
+}
+@media (max-width: 414px) {
+  .header {
+    height: 100vh;
+    width: 100%;
+    background-color: #1c1c1c;
+    position: fixed;
+    left: -100%;
+    flex-direction: column;
+    z-index: 12;
+    border-right: 1px solid var(--clr-text);
+    transition: left 0.7s;
+  }
+  .activeHeader {
+    left: 0;
+  }
+  .bars {
+    display: block;
+    position: fixed;
+    left: 15px;
+    top: 15px;
+  }
+  .cartBlock {
+    margin-right: 0;
+    margin-left: 0;
+  }
 }

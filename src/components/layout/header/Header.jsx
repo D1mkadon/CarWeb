@@ -1,19 +1,23 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useContext } from "react";
-import { FC } from "react";
+import React, { useContext, useState } from "react";
 import style from "./header.module.scss";
 import HomeIcon from "@mui/icons-material/Home";
-import { Divider } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-
+import CloseIcon from "@mui/icons-material/Close";
 import CartContext from "../../../../context/CartContext";
-const Header: FC = () => {
+import MenuIcon from "@mui/icons-material/Menu";
+const Header = () => {
   const { cart } = useContext(CartContext);
   const { pathname } = useRouter();
+  const [btn, setBtn] = useState();
   return (
     <div className={style.div}>
-      <header className={style.header}>
+      <header
+        className={
+          btn ? [style.header, style.activeHeader].join(" ") : [style.header]
+        }
+      >
         <div className={style.logo}></div>
         <Link href="/">
           <HomeIcon sx={{ position: "relative", top: 4 }} />
@@ -51,8 +55,10 @@ const Header: FC = () => {
             </div>
           </Link>
         </div>
+        <div className={style.bars} onClick={() => setBtn(!btn)}>
+          {btn ? <CloseIcon size={"25px"} /> : <MenuIcon size={"25px"} />}
+        </div>
       </header>
-      <Divider sx={{ margin: "2" }} />
     </div>
   );
 };
