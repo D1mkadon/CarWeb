@@ -92,6 +92,64 @@
     rgba(28, 28, 28, 1) 100%
   );
 }
+@media (max-width: 1200px) {
+  .SecondImage {
+    background: url("./SecondaryCar.png") 50% 20% / 650px auto no-repeat;
+    width: 100%;
+    height: 100%;
+  }
+  .SmallBackground {
+    width: 65%;
+    height: auto;
+  }
+  .RightBlock {
+    width: 35%;
+  }
+  .BlockSecondImage {
+    height: 75vh;
+  }
+}
+@media (max-width: 768px) {
+  .SmallBackground {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    width: 100%;
+  }
+  .BlockSecondImage {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .RightBlock {
+    height: auto;
+    width: 100%;
+  }
+
+  .SecondImage {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex-direction: column;
+    width: 100%;
+    background: url("./SecondaryCar.png") 50% 20% / 500px auto no-repeat;
+  }
+  .LeftSmallBlocks {
+    padding: 10px;
+    width: 100%;
+    max-width: none;
+  }
+  .leftP {
+    font-size: 14px;
+  }
+  .LeftH4 {
+    font-size: 16px;
+  }
+  .LeftH2 {
+    letter-spacing: 2px;
+  }
+}
+
 @media (max-width: 414px) {
   .MainImage {
     width: 100%;
@@ -118,7 +176,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    background: url("./SecondaryCar.png") 10% 20% / 500px auto no-repeat;
+    background: url("./SecondaryCar.png") 10% 20% / 404px auto no-repeat;
   }
   .SmallBackground {
     background: rgb(255, 255, 255);

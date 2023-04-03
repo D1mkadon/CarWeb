@@ -24,7 +24,7 @@ const Cart = () => {
             duration: 0.75,
           }}
         >
-          <p style={{ marginTop: "20px" }}>
+          <p style={{ marginTop: "10vh" }}>
             {cart?.cartItems?.length || 0} Items in Cart
           </p>
           {cart?.cartItems?.length <= 0 ? (

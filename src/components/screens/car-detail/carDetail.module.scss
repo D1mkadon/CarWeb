@@ -1,8 +1,6 @@
 .carBlock {
   margin-top: 10vh;
-  //   flex-direction: column;
   display: flex;
-  //   align-items: center;
 }
 .Image {
   border-radius: 30px;
@@ -22,4 +20,21 @@
 }
 .ImageDiv {
   max-width: 50%;
+}
+@media (max-width: 1200px) {
+  .carBlock {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .ImageDiv {
+    max-width: 80%;
+  }
+  .Image {
+    width: 100%;
+    height: auto;
+  }
+  .back {
+    display: none;
+  }
 }
