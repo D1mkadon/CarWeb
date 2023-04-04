@@ -2,16 +2,24 @@ import Layout from "@/components/layout/Layout";
 import { Container } from "@mui/system";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import styles from "./carDetail.module.scss";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Alert, AlertTitle, Snackbar } from "@mui/material";
+import CartContext from "../../../../context/CartContext";
 const CarDetail = ({ car }) => {
   const [AddedToCartMSG, setAddedToCartMSG] = useState(false);
+  const { addItemToCart } = useContext(CartContext);
 
-  const handleAddedToCartMSG = () => {
+  const addToCartHandler = () => {
+    addItemToCart({
+      id: car.id,
+      name: car.name,
+      price: car.price,
+      image: car.image,
+    });
     setAddedToCartMSG(true);
   };
   const handleCloseAlert = (event, reason) => {
@@ -64,7 +72,7 @@ const CarDetail = ({ car }) => {
               }).format(car.price)}
             </p>
             <AddShoppingCartIcon
-              // onClick={addItemToCart}
+              onClick={addToCartHandler}
               sx={{
                 position: "relative",
                 top: "0.5vh",
