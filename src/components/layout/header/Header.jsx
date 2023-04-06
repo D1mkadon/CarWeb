@@ -7,10 +7,14 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CloseIcon from "@mui/icons-material/Close";
 import CartContext from "../../../../context/CartContext";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useSession, signIn, signOut } from "next-auth/react";
+
+import Welcome from "./Welcome/Welcome";
 const Header = () => {
   const { cart } = useContext(CartContext);
   const { pathname } = useRouter();
   const [btn, setBtn] = useState();
+
   return (
     <div className={style.div}>
       <header
@@ -38,6 +42,8 @@ const Header = () => {
         >
           Store
         </Link>
+     
+        <Welcome />
         <div className={style.cartBlock}>
           <Link href="/Cart">
             <div>
@@ -55,6 +61,7 @@ const Header = () => {
             </div>
           </Link>
         </div>
+
         <div className={style.bars} onClick={() => setBtn(!btn)}>
           {btn ? <CloseIcon size={"25px"} /> : <MenuIcon size={"25px"} />}
         </div>

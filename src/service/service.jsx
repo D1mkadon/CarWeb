@@ -12,4 +12,8 @@ export const CarService = {
     const { data } = await axios.get(`/cars`, { params: { id: _id } });
     return data[0];
   },
+  async getUsers() {
+    const { data } = await axios.get("/user");
+    return data;
+  },
 };

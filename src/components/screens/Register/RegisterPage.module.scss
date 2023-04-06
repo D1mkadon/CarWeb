@@ -1,0 +1,21 @@
+.Container {
+  min-height: 100vh;
+  padding: 3vh 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.form {
+  margin-top: 3vh;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 30%;
+}
+.LoginLink {
+  text-decoration: underline;
+  &:hover {
+    color: aquamarine;
+  }
+}

@@ -1,0 +1,19 @@
+.gitBlock {
+  margin-top: 5vh;
+  display: flex;
+  gap: 20px;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.button {
+  align-items: center;
+  text-align: center;
+  gap: 5px;
+  &:hover {
+    color: aquamarine;
+  }
+}
+@media (max-width: 414px) {
+}

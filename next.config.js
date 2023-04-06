@@ -20,6 +20,9 @@ const nextConfig = {
       "www.topgear.com",
       "www.tuningblog.eu",
       "assets.adac.de",
+      "cdn.discordapp.com",
+      "avatars.githubusercontent.com",
+      "lh3.googleusercontent.com",
     ],
   },
 };
