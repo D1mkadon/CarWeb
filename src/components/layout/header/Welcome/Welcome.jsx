@@ -5,9 +5,12 @@ import { Button } from "@mui/material";
 import Link from "next/link";
 import style from "../header.module.scss";
 import { useRouter } from "next/router";
+import { useContext } from "react";
+import UsersContext from "../../../../../context/UserContext";
 export default function Welcome() {
   const { data: session, status } = useSession();
   const { pathname } = useRouter();
+  const { isLogin, handleLogOut } = useContext(UsersContext);
   if (status === "authenticated") {
     return (
       <div className={styles.welcDiv}>
@@ -16,6 +19,16 @@ export default function Welcome() {
 
         <Button variant="outlined" onClick={() => signOut()}>
           Sign out
+        </Button>
+      </div>
+    );
+  }
+  if (isLogin) {
+    return (
+      <div className={styles.welcDiv}>
+        {isLogin.name}
+        <Button variant="outlined" onClick={handleLogOut}>
+          log out
         </Button>
       </div>
     );

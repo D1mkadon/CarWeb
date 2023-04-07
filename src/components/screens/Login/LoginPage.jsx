@@ -1,30 +1,63 @@
-import { Button, Container, TextField } from "@mui/material";
-import { useEffect } from "react";
+import { Alert, Button, Container, Snackbar, TextField } from "@mui/material";
+import { useContext, useEffect, useState } from "react";
 import { Controller, useForm, useFormState } from "react-hook-form";
 import styles from "../Register/RegisterPage.module.scss";
 import { loginValidation, passwordValidation } from "@/validation/validation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import SocialsLogIn from "./Socials/socialsLogIn";
+import UsersContext from "../../../../context/UserContext";
+import { useRouter } from "next/router";
 
 const LoginPage = () => {
-  const { register, handleSubmit, watch, control, reset, formState } = useForm({
+  const { handleSubmit, control, reset, formState } = useForm({
     defaultValues: {
       login: "",
       password: "",
     },
   });
+  const { handleLogin } = useContext(UsersContext);
+  const [open, setOpen] = useState({
+    open: false,
+    type: "success",
+    text: "",
+  });
+  const router = useRouter();
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
 
+    setOpen({ open: false, type: open.type, text: open.text });
+  };
   const { errors } = useFormState({ control });
-  const onSubmit = async (data) => {
-    console.log(data);
+  const onSubmit = async (inputs) => {
+    const localData = JSON.parse(localStorage.getItem("users"));
+
+    const LoginUser = localData?.find((e) => e.login === inputs.login);
+
+    if (LoginUser && LoginUser.password === inputs.password) {
+      setOpen({
+        open: true,
+        type: "success",
+        text: "Approved login",
+      });
+      handleLogin(LoginUser);
+      router.push("/");
+    } else {
+      setOpen({
+        open: true,
+        type: "error",
+        text: "Login or password is incorrect",
+      });
+    }
   };
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
       reset({ login: "", password: "" });
     }
   }, [formState, reset]);
-  const { data: session, status } = useSession();
+
   return (
     <Container
       sx={{ display: "flex" }}
@@ -74,11 +107,21 @@ const LoginPage = () => {
         <Link className={styles.LoginLink} href={"/register"}>
           Don`t have an Account yet?
         </Link>
-        <Button disabled type="submit" variant="outlined">
+        <Button type="submit" variant="outlined">
           Log in
         </Button>
       </form>
       <SocialsLogIn />
+      <Snackbar open={open.open} autoHideDuration={2000} onClose={handleClose}>
+        <Alert
+          variant="filled"
+          onClose={handleClose}
+          severity={open.type}
+          sx={{ width: "100%" }}
+        >
+          {open.text}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };

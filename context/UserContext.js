@@ -4,7 +4,14 @@ const UsersContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
+  const [isLogin, setIsLogin] = useState(null);
 
+  const handleLogin = (user) => {
+    setIsLogin(user);
+  };
+  const handleLogOut = () => {
+    setIsLogin(null);
+  };
   useEffect(() => {
     setUsersToState();
   }, []);
@@ -25,31 +32,18 @@ export const UserProvider = ({ children }) => {
       email,
     };
 
-    const isUserExist = users?.usersA?.find(
-      (element) => element.email === userInfo.email
-    );
-
-    let newUsers;
-
-    if (isUserExist) {
-      return;
-    } else {
-      newUsers = [...(users?.usersA || []), userInfo];
-    }
-    localStorage.setItem("users", JSON.stringify({ usersA: newUsers }));
+    const newUsers = [...(users || []), userInfo];
+    console.log(newUsers);
+    localStorage.setItem("users", JSON.stringify(newUsers));
     setUsersToState();
   };
-
-  //   const deleteItemFromusers = (id) => {
-  //     const newusersItems = users?.usersItems?.filter((i) => i.id !== id);
-
-  //     localStorage.setItem("users", JSON.stringify({ usersItems: newusersItems }));
-  //     setUsersToState();
-  //   };
 
   return (
     <UsersContext.Provider
       value={{
+        isLogin,
+        handleLogin,
+        handleLogOut,
         users,
         addUsers,
       }}

@@ -1,6 +1,6 @@
 "use client";
 import { Controller, useForm, useFormState } from "react-hook-form";
-import { Button, Container, TextField } from "@mui/material";
+import { Alert, Button, Container, Snackbar, TextField } from "@mui/material";
 import styles from "./RegisterPage.module.scss";
 import {
   emailValidation,
@@ -8,31 +8,78 @@ import {
   nameValidation,
   passwordValidation,
 } from "@/validation/validation";
-import { useEffect } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-// import { useContext } from "react";
-// import UsersContext from "../../../../context/UserContext";
+import { useContext } from "react";
+import UsersContext from "../../../../context/UserContext";
+import { useRouter } from "next/router";
 
 const RegisterPage = () => {
-  // const { addUsers } = useContext(UsersContext);
-  const { register, handleSubmit, watch, control, reset, formState } = useForm({
-    defaultValues: {
-      Login: "",
-      email: "",
-      password: "",
-      name: "",
-    },
-  });
+  const { addUsers } = useContext(UsersContext);
+  const router = useRouter();
+  const { register, handleSubmit, watch, control, reset, formState, error } =
+    useForm({
+      defaultValues: {
+        Login: "",
+        email: "",
+        password: "",
+        name: "",
+      },
+    });
   const { errors } = useFormState({ control });
+  const [open, setOpen] = useState({
+    open: false,
+    type: "success",
+    text: "",
+  });
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen({ open: false, type: open.type, text: open.text });
+  };
+
   const onSubmit = (data) => {
-    console.log(data);
-    // addUsers({
-    //   name: data.name,
-    //   login: data.Login,
-    //   password: data.password,
-    //   email: data.email,
-    // });
+    const localData = JSON.parse(localStorage.getItem("users"));
+
+    if (!localData) {
+      addUsers({
+        name: data.name,
+        login: data.Login,
+        password: data.password,
+        email: data.email,
+      });
+      router.push("/login");
+      setOpen({
+        open: true,
+        type: "success",
+        text: "Approved registration",
+      });
+    } else {
+      const index = localData.findIndex((e) => e.email === data.email);
+      if (index > -1) {
+        return setOpen({
+          open: true,
+          type: "error",
+          text: "This email already exist",
+        });
+      }
+      console.log(data);
+      addUsers({
+        name: data.name,
+        login: data.Login,
+        password: data.password,
+        email: data.email,
+      });
+      router.push("/login");
+      setOpen({
+        open: true,
+        type: "success",
+        text: "Approved registration",
+      });
+    }
   };
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
@@ -51,7 +98,7 @@ const RegisterPage = () => {
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <Controller
             name="name"
-            rules={nameValidation}
+            // rules={nameValidation}
             control={control}
             render={({ field }) => (
               <TextField
@@ -69,7 +116,7 @@ const RegisterPage = () => {
           />
           <Controller
             name="Login"
-            rules={loginValidation}
+            // rules={loginValidation}
             control={control}
             render={({ field }) => (
               <TextField
@@ -106,7 +153,7 @@ const RegisterPage = () => {
           <Controller
             name="password"
             control={control}
-            rules={passwordValidation}
+            // rules={passwordValidation}
             render={({ field }) => (
               <TextField
                 color="primary"
@@ -129,6 +176,20 @@ const RegisterPage = () => {
             Submit
           </Button>
         </form>
+        <Snackbar
+          open={open.open}
+          autoHideDuration={2000}
+          onClose={handleClose}
+        >
+          <Alert
+            variant="filled"
+            onClose={handleClose}
+            severity={open.type}
+            sx={{ width: "100%" }}
+          >
+            {open.text}
+          </Alert>
+        </Snackbar>
       </Container>
     </>
   );
