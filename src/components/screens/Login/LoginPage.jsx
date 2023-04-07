@@ -26,7 +26,11 @@ const LoginPage = () => {
   }, [formState, reset]);
   const { data: session, status } = useSession();
   return (
-    <Container className={styles.Container} maxWidth="xl">
+    <Container
+      sx={{ display: "flex" }}
+      className={styles.Container}
+      maxWidth="xl"
+    >
       <p> login </p>
       <p> I have no a good backend for realizing log in </p>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>

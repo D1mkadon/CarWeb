@@ -41,7 +41,11 @@ const RegisterPage = () => {
   }, [formState, reset]);
   return (
     <>
-      <Container className={styles.Container} maxWidth="xl">
+      <Container
+        sx={{ display: "flex" }}
+        className={styles.Container}
+        maxWidth="xl"
+      >
         <p> Register </p>
         <p> Do not provide your real info! It will be in open source </p>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
