@@ -10,7 +10,7 @@ const UploadAndDisplayImage = () => {
   if (isLogin) {
     return (
       <Layout title={"profile"}>
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" sx={{ minHeight: "100vh" }}>
           <h1>Upload and Display Image usign React Hook's</h1>
 
           {selectedImage && (
@@ -47,7 +47,9 @@ const UploadAndDisplayImage = () => {
   } else {
     return (
       <Layout title={"User not found"}>
-        <Container maxWidth="xl">user not found</Container>
+        <Container maxWidth="xl" sx={{ minHeight: "100vh" }}>
+          user not found
+        </Container>
       </Layout>
     );
   }
