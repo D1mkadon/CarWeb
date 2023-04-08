@@ -1,10 +1,16 @@
+.cartLink {
+  margin: 0 0 0 0;
+  letter-spacing: 0;
+  line-height: 0;
+  padding: 0 0 0 0;
+}
 .header {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   padding: 10px;
-  > a {
+  a {
     color: #fff;
     line-height: 72px;
     margin: 0 10px;
@@ -16,6 +22,7 @@
     }
   }
 }
+
 .bars {
   display: none;
 }
@@ -27,12 +34,18 @@
   z-index: 3;
 }
 .cartBlock {
+  color: #fff;
+  line-height: 0;
+  margin: 0 10px;
+  transition: color 0.4s ease-in-out;
+  padding: 0;
   position: relative;
   right: 10vh;
   margin-left: auto;
   position: relative;
   cursor: pointer;
 }
+
 .logo {
   margin-right: auto;
 }

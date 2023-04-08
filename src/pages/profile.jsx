@@ -1,8 +1,9 @@
 import Layout from "@/components/layout/Layout";
 import React, { useContext, useState } from "react";
 import UsersContext from "../../context/UserContext";
-import { Container } from "@mui/material";
-
+import { Container, IconButton } from "@mui/material";
+import { Avatar } from "@mui/material";
+import { PhotoCamera } from "@mui/icons-material";
 const UploadAndDisplayImage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const { isLogin } = useContext(UsersContext);
@@ -14,27 +15,32 @@ const UploadAndDisplayImage = () => {
 
           {selectedImage && (
             <div>
-              <img
-                alt="not found"
-                width={"250px"}
+              <Avatar
+                alt="Remy Sharp"
                 src={URL.createObjectURL(selectedImage)}
+                sx={{ width: 100, height: 100 }}
+                onClick={() => setSelectedImage(null)}
               />
-              <br />
-              <button onClick={() => setSelectedImage(null)}>Remove</button>
             </div>
           )}
 
-          <br />
-          <br />
-
-          <input
-            type="file"
-            name="myImage"
-            onChange={(event) => {
-              console.log(event.target.files[0]);
-              setSelectedImage(event.target.files[0]);
-            }}
-          />
+          <IconButton
+            color="primary"
+            aria-label="upload picture"
+            component="label"
+          >
+            <input
+              hidden
+              accept="image/*"
+              name="myImage"
+              type="file"
+              onChange={(event) => {
+                console.log(event.target.files[0]);
+                setSelectedImage(event.target.files[0]);
+              }}
+            />
+            <PhotoCamera />
+          </IconButton>
         </Container>
       </Layout>
     );

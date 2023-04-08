@@ -1,7 +1,7 @@
 import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import styles from "./Welcome.module.scss";
-import { Button } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import Link from "next/link";
 import style from "../header.module.scss";
 import { useRouter } from "next/router";
@@ -15,6 +15,7 @@ export default function Welcome() {
   useEffect(() => {
     setSelectedImage(isLogin?.image);
   }, []);
+
   if (status === "authenticated") {
     return (
       <div className={styles.welcDiv}>
@@ -30,7 +31,12 @@ export default function Welcome() {
   if (isLogin) {
     return (
       <div className={styles.welcDiv}>
-        <Link href={"/profile"}> {isLogin.name}</Link>
+        <Link
+          className={pathname === "/profile" ? style.active : ""}
+          href={"/profile"}
+        >
+          {isLogin.name}
+        </Link>
 
         <Button variant="outlined" onClick={handleLogOut}>
           log out

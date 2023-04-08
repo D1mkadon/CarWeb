@@ -42,10 +42,10 @@ const Header = () => {
         >
           Store
         </Link>
-     
+
         <Welcome />
         <div className={style.cartBlock}>
-          <Link href="/Cart">
+          <Link style={{ lineHeight: 0 }} href="/Cart">
             <div>
               <ShoppingCartIcon
                 sx={{

@@ -6,8 +6,16 @@
   left: 10%;
   text-align: center;
   align-items: center;
-  img {
-    position: relative;
-    border-radius: 50%;
+
+  a {
+    color: #fff;
+    line-height: 72px;
+    margin: 0 10px;
+    transition: color 0.4s ease-in-out;
+    padding: 20px 0;
+    &:hover,
+    &.active {
+      color: rgb(127, 255, 212);
+    }
   }
 }
