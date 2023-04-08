@@ -5,12 +5,16 @@ import { Button } from "@mui/material";
 import Link from "next/link";
 import style from "../header.module.scss";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import UsersContext from "../../../../../context/UserContext";
 export default function Welcome() {
   const { data: session, status } = useSession();
+  const [selectedImage, setSelectedImage] = useState(null);
   const { pathname } = useRouter();
   const { isLogin, handleLogOut } = useContext(UsersContext);
+  useEffect(() => {
+    setSelectedImage(isLogin?.image);
+  }, []);
   if (status === "authenticated") {
     return (
       <div className={styles.welcDiv}>
@@ -26,7 +30,8 @@ export default function Welcome() {
   if (isLogin) {
     return (
       <div className={styles.welcDiv}>
-        {isLogin.name}
+        <Link href={"/profile"}> {isLogin.name}</Link>
+
         <Button variant="outlined" onClick={handleLogOut}>
           log out
         </Button>

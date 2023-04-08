@@ -1,3 +1,4 @@
+import { Alert, Snackbar } from "@mui/material";
 import { createContext, useState, useEffect } from "react";
 
 const UsersContext = createContext();
@@ -7,13 +8,23 @@ export const UserProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(null);
 
   const handleLogin = (user) => {
+    localStorage.setItem("loginedUser", JSON.stringify(user));
     setIsLogin(user);
+  };
+  const setLoginUserToState = () => {
+    setIsLogin(
+      localStorage.getItem("loginedUser")
+        ? JSON.parse(localStorage.getItem("loginedUser"))
+        : null
+    );
   };
   const handleLogOut = () => {
     setIsLogin(null);
+    localStorage.removeItem("loginedUser");
   };
   useEffect(() => {
     setUsersToState();
+    setLoginUserToState();
   }, []);
 
   const setUsersToState = () => {
@@ -39,17 +50,19 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UsersContext.Provider
-      value={{
-        isLogin,
-        handleLogin,
-        handleLogOut,
-        users,
-        addUsers,
-      }}
-    >
-      {children}
-    </UsersContext.Provider>
+    <>
+      <UsersContext.Provider
+        value={{
+          isLogin,
+          handleLogin,
+          handleLogOut,
+          users,
+          addUsers,
+        }}
+      >
+        {children}
+      </UsersContext.Provider>
+    </>
   );
 };
 

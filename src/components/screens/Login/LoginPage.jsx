@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import SocialsLogIn from "./Socials/socialsLogIn";
 import UsersContext from "../../../../context/UserContext";
 import { useRouter } from "next/router";
+import AlertBox from "@/components/Alert/AlertBox";
 
 const LoginPage = () => {
   const { handleSubmit, control, reset, formState } = useForm({
@@ -16,7 +17,7 @@ const LoginPage = () => {
       password: "",
     },
   });
-  const { handleLogin } = useContext(UsersContext);
+  const { handleLogin, isLogin, handleAlert } = useContext(UsersContext);
   const [open, setOpen] = useState({
     open: false,
     type: "success",
@@ -42,8 +43,9 @@ const LoginPage = () => {
         type: "success",
         text: "Approved login",
       });
+
+      router.push({ pathname: "/" }, undefined, { shallow: true });
       handleLogin(LoginUser);
-      router.push("/");
     } else {
       setOpen({
         open: true,
@@ -57,7 +59,9 @@ const LoginPage = () => {
       reset({ login: "", password: "" });
     }
   }, [formState, reset]);
-
+  if (isLogin) {
+    return <div>logged success</div>;
+  }
   return (
     <Container
       sx={{ display: "flex" }}
@@ -112,7 +116,7 @@ const LoginPage = () => {
         </Button>
       </form>
       <SocialsLogIn />
-      <Snackbar open={open.open} autoHideDuration={2000} onClose={handleClose}>
+      {/* <Snackbar open={open.open} autoHideDuration={2000} onClose={handleClose}>
         <Alert
           variant="filled"
           onClose={handleClose}
@@ -121,7 +125,8 @@ const LoginPage = () => {
         >
           {open.text}
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
+      <AlertBox open={open.open} text={open.text} type={open.type} />
     </Container>
   );
 };

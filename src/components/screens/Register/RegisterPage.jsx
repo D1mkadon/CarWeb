@@ -51,11 +51,18 @@ const RegisterPage = () => {
         password: data.password,
         email: data.email,
       });
-      router.push("/login");
+
       setOpen({
         open: true,
         type: "success",
         text: "Approved registration",
+      });
+      router.push({ pathname: "/login" }, undefined, { shallow: true });
+
+      setOpen({
+        isOpen: true,
+        isType: "success",
+        isText: "Approved registration",
       });
     } else {
       const index = localData.findIndex((e) => e.email === data.email);
@@ -73,7 +80,7 @@ const RegisterPage = () => {
         password: data.password,
         email: data.email,
       });
-      router.push("/login");
+      router.push({ pathname: "/login" }, undefined, { shallow: true });
       setOpen({
         open: true,
         type: "success",
