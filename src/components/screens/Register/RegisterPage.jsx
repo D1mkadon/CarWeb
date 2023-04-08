@@ -105,7 +105,7 @@ const RegisterPage = () => {
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <Controller
             name="name"
-            // rules={nameValidation}
+            rules={nameValidation}
             control={control}
             render={({ field }) => (
               <TextField
@@ -123,7 +123,7 @@ const RegisterPage = () => {
           />
           <Controller
             name="Login"
-            // rules={loginValidation}
+            rules={loginValidation}
             control={control}
             render={({ field }) => (
               <TextField
@@ -160,7 +160,7 @@ const RegisterPage = () => {
           <Controller
             name="password"
             control={control}
-            // rules={passwordValidation}
+            rules={passwordValidation}
             render={({ field }) => (
               <TextField
                 color="primary"

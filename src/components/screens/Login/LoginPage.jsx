@@ -116,16 +116,7 @@ const LoginPage = () => {
         </Button>
       </form>
       <SocialsLogIn />
-      {/* <Snackbar open={open.open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert
-          variant="filled"
-          onClose={handleClose}
-          severity={open.type}
-          sx={{ width: "100%" }}
-        >
-          {open.text}
-        </Alert>
-      </Snackbar> */}
+
       <AlertBox open={open.open} text={open.text} type={open.type} />
     </Container>
   );
