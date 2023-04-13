@@ -4,6 +4,8 @@ import styles from "./socialsLogIn.module.scss";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
 import { FaDiscord } from "react-icons/fa";
+import { useContext } from "react";
+import { authContext } from "@/lib/store/auth-context";
 export default function SocialsLogIn() {
   const { data: session } = useSession();
   const handleClickDiscord = async () => {
@@ -18,12 +20,7 @@ export default function SocialsLogIn() {
       callbackUrl: "/",
     });
   };
-  const handleClickGoogle = async () => {
-    await signIn("google", {
-      redirect: true,
-      callbackUrl: "/",
-    });
-  };
+  const { googleLoginHandler } = useContext(authContext);
   if (session) {
     return null;
   }
@@ -32,7 +29,7 @@ export default function SocialsLogIn() {
       <Button
         className={styles.button}
         variant="outlined"
-        onClick={handleClickGoogle}
+        onClick={googleLoginHandler}
       >
         Sign in with Google <GoogleIcon />
       </Button>

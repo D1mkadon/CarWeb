@@ -18,7 +18,7 @@ const Welcome = () => {
       <div className={styles.welcDiv}>
         <p> {session?.user.name}</p>
         <Image
-          src={session.user.image}
+          src={session?.user.image}
           style={{ borderRadius: "50%" }}
           alt="/"
           width={30}

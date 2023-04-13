@@ -213,10 +213,10 @@ const Profile = () => {
                 variant="outlined"
                 name="ZipCode"
               />
+              <Button type="submit" variant="outlined">
+                Update
+              </Button>
             </div>
-            <Button type="submit" variant="outlined">
-              Update
-            </Button>
           </div>
         </div>
       </Container>

@@ -12,6 +12,7 @@ import {
 } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { addDoc, collection } from "firebase/firestore";
+import { useRouter } from "next/router";
 
 export const authContext = createContext({
   user: null,
@@ -22,11 +23,14 @@ export const authContext = createContext({
 
 export default function AuthContextProvider({ children }) {
   const [user, loading] = useAuthState(auth);
+  const router = useRouter();
   const PersonalDetailsRef = collection(db, `PersonalDetails`);
   const googleProvider = new GoogleAuthProvider(auth);
   const googleLoginHandler = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
+      await signInWithPopup(auth, googleProvider).then(() =>
+        router.push("/profile", undefined, { shallow: true })
+      );
     } catch (error) {
       throw error;
     }
