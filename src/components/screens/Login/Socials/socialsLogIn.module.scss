@@ -2,7 +2,6 @@
   margin-top: 5vh;
   display: flex;
   gap: 20px;
-
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -15,5 +14,21 @@
     color: aquamarine;
   }
 }
+@media (max-width: 820px) {
+  .gitBlock {
+    flex-direction: column;
+    width: 80%;
+  }
+  .button {
+    width: 100%;
+  }
+}
 @media (max-width: 414px) {
+  .gitBlock {
+    flex-direction: column;
+  }
+
+  .button {
+    width: 100%;
+  }
 }

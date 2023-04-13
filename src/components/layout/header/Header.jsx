@@ -1,22 +1,32 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from "./header.module.scss";
 import HomeIcon from "@mui/icons-material/Home";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CloseIcon from "@mui/icons-material/Close";
 import CartContext from "../../../../context/CartContext";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useSession, signIn, signOut } from "next-auth/react";
 
 import Welcome from "./Welcome/Welcome";
 const Header = () => {
   const { cart } = useContext(CartContext);
   const { pathname } = useRouter();
   const [btn, setBtn] = useState();
+  const [shadow, setShadow] = useState(false);
 
+  useEffect(() => {
+    const handleShadow = () => {
+      if (window.scrollY >= 90) {
+        setShadow(true);
+      } else {
+        setShadow(false);
+      }
+    };
+    window.addEventListener("scroll", handleShadow);
+  }, []);
   return (
-    <div className={style.div}>
+    <div className={shadow ? style.shadow : style.div}>
       <header
         className={
           btn ? [style.header, style.activeHeader].join(" ") : [style.header]

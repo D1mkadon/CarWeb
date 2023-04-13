@@ -11,21 +11,31 @@ import {
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useContext } from "react";
-import UsersContext from "../../../../context/UserContext";
 import { useRouter } from "next/router";
-
+import { authContext } from "@/lib/store/auth-context";
+import { updateProfile } from "firebase/auth";
 const RegisterPage = () => {
-  const { addUsers } = useContext(UsersContext);
+  const { user, createUser } = useContext(authContext);
+  // const { addUsers } = useContext(UsersContext);
   const router = useRouter();
-  const { register, handleSubmit, watch, control, reset, formState, error } =
-    useForm({
-      defaultValues: {
-        Login: "",
-        email: "",
-        password: "",
-        name: "",
-      },
-    });
+  const {
+    register,
+    setError,
+    handleSubmit,
+    clearErrors,
+    watch,
+    control,
+    reset,
+    formState,
+    error,
+  } = useForm({
+    defaultValues: {
+      UserName: "",
+      email: "",
+      password: "",
+      name: "",
+    },
+  });
   const { errors } = useFormState({ control });
   const [open, setOpen] = useState({
     open: false,
@@ -42,57 +52,36 @@ const RegisterPage = () => {
   };
 
   const onSubmit = (data) => {
-    const localData = JSON.parse(localStorage.getItem("users"));
-
-    if (!localData) {
-      addUsers({
-        name: data.name,
-        login: data.Login,
-        password: data.password,
-        email: data.email,
-      });
-
-      setOpen({
-        open: true,
-        type: "success",
-        text: "Approved registration",
-      });
-      router.push({ pathname: "/login" }, undefined, { shallow: true });
-
-      setOpen({
-        isOpen: true,
-        isType: "success",
-        isText: "Approved registration",
-      });
-    } else {
-      const index = localData.findIndex((e) => e.email === data.email);
-      if (index > -1) {
-        return setOpen({
+    createUser(data.email, data.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        updateProfile(user, { displayName: data.name });
+        router.push("/profile", undefined, { shallow: true });
+        setOpen({
           open: true,
-          type: "error",
-          text: "This email already exist",
+          type: "success",
+          text: "Approved registration",
         });
-      }
-      console.log(data);
-      addUsers({
-        name: data.name,
-        login: data.Login,
-        password: data.password,
-        email: data.email,
+      })
+      .catch((error) => {
+        setError("email", { message: "email already exist" });
+        if (error.message === "Firebase: Error (auth/email-already-in-use)") {
+          console.log("error dada");
+        }
+        console.log(error);
       });
-      router.push({ pathname: "/login" }, undefined, { shallow: true });
-      setOpen({
-        open: true,
-        type: "success",
-        text: "Approved registration",
-      });
-    }
   };
+
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
-      reset({ Login: "", email: "", password: "" });
+      reset({ UserName: "", email: "", password: "", name: "" });
     }
   }, [formState, reset]);
+  if (user) {
+    router.push("/profile", undefined, { shallow: true });
+    // return <p>redirect</p>;
+  }
+
   return (
     <>
       <Container
@@ -101,7 +90,6 @@ const RegisterPage = () => {
         maxWidth="xl"
       >
         <p> Register </p>
-        <p> Do not provide your real info! It will be in open source </p>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <Controller
             name="name"
@@ -122,20 +110,20 @@ const RegisterPage = () => {
             )}
           />
           <Controller
-            name="Login"
+            name="UserName"
             rules={loginValidation}
             control={control}
             render={({ field }) => (
               <TextField
                 color="primary"
-                id="form-login"
-                label="Login"
+                id="form-UserName"
+                label="User name"
                 variant="outlined"
-                name="Login"
+                name="UserName"
                 onChange={(e) => field.onChange(e)}
                 value={field.value}
-                error={!!errors.Login?.message}
-                helperText={errors.Login?.message}
+                error={!!errors.UserName?.message}
+                helperText={errors.UserName?.message}
               />
             )}
           />
@@ -145,6 +133,7 @@ const RegisterPage = () => {
             rules={emailValidation}
             render={({ field }) => (
               <TextField
+                onClick={() => clearErrors("email")}
                 color="primary"
                 id="form-email"
                 label="Email"

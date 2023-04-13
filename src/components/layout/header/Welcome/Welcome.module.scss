@@ -19,3 +19,12 @@
     }
   }
 }
+@media (max-width: 820px) {
+  .welcDiv {
+    flex-direction: column;
+    left: 0;
+    button {
+      margin-bottom: 30px;
+    }
+  }
+}

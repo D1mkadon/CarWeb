@@ -2,27 +2,34 @@ import { Alert, Button, Container, Snackbar, TextField } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { Controller, useForm, useFormState } from "react-hook-form";
 import styles from "../Register/RegisterPage.module.scss";
-import { loginValidation, passwordValidation } from "@/validation/validation";
+import {
+  emailValidation,
+  loginValidation,
+  passwordValidation,
+} from "@/validation/validation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import SocialsLogIn from "./Socials/socialsLogIn";
-import UsersContext from "../../../../context/UserContext";
+
+// import UsersContext from "../../../../context/UserContext";
 import { useRouter } from "next/router";
 import AlertBox from "@/components/Alert/AlertBox";
+import { authContext } from "@/lib/store/auth-context";
 
 const LoginPage = () => {
   const { handleSubmit, control, reset, formState } = useForm({
     defaultValues: {
-      login: "",
+      email: "",
       password: "",
     },
   });
-  const { handleLogin, isLogin, handleAlert } = useContext(UsersContext);
+  // const { handleLogin, isLogin, handleAlert } = useContext(UsersContext);
   const [open, setOpen] = useState({
     open: false,
     type: "success",
     text: "",
   });
+  const { user, logInUser } = useContext(authContext);
   const router = useRouter();
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -33,59 +40,50 @@ const LoginPage = () => {
   };
   const { errors } = useFormState({ control });
   const onSubmit = async (inputs) => {
-    const localData = JSON.parse(localStorage.getItem("users"));
+    await logInUser(inputs.email, inputs.password)
+      .then((userCredential) => {
+     
 
-    const LoginUser = localData?.find((e) => e.login === inputs.login);
-
-    if (LoginUser && LoginUser.password === inputs.password) {
-      setOpen({
-        open: true,
-        type: "success",
-        text: "Approved login",
+        setOpen({
+          open: true,
+          type: "success",
+          text: "Approved registration",
+        });
+        router.push("/profile", undefined, { shallow: true });
+      })
+      .catch((error) => {
+        console.log(error);
       });
-
-      router.push({ pathname: "/" }, undefined, { shallow: true });
-      handleLogin(LoginUser);
-    } else {
-      setOpen({
-        open: true,
-        type: "error",
-        text: "Login or password is incorrect",
-      });
-    }
   };
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
-      reset({ login: "", password: "" });
+      reset({ email: "", password: "" });
     }
   }, [formState, reset]);
-  if (isLogin) {
-    return <div>logged success</div>;
-  }
   return (
     <Container
       sx={{ display: "flex" }}
       className={styles.Container}
       maxWidth="xl"
     >
-      <p> login </p>
-      <p> I have no a good backend for realizing log in </p>
+      <p> Email </p>
+
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <Controller
-          name="login"
-          rules={loginValidation}
+          name="email"
           control={control}
+          rules={emailValidation}
           render={({ field }) => (
             <TextField
               color="primary"
-              id="form-login"
-              label="Login"
+              id="form-email"
+              label="Email"
               variant="outlined"
-              name="login"
+              name="email"
               onChange={(e) => field.onChange(e)}
               value={field.value}
-              error={!!errors.login?.message}
-              helperText={errors.login?.message}
+              error={!!errors.email?.message}
+              helperText={errors.email?.message}
             />
           )}
         />

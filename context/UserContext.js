@@ -1,69 +1,69 @@
-import { Alert, Snackbar } from "@mui/material";
-import { createContext, useState, useEffect } from "react";
 
-const UsersContext = createContext();
+// import { createContext, useState, useEffect } from "react";
 
-export const UserProvider = ({ children }) => {
-  const [users, setUsers] = useState([]);
-  const [isLogin, setIsLogin] = useState(null);
+// const UsersContext = createContext();
 
-  const handleLogin = (user) => {
-    localStorage.setItem("loginedUser", JSON.stringify(user));
-    setIsLogin(user);
-  };
-  const setLoginUserToState = () => {
-    setIsLogin(
-      localStorage.getItem("loginedUser")
-        ? JSON.parse(localStorage.getItem("loginedUser"))
-        : null
-    );
-  };
-  const handleLogOut = () => {
-    setIsLogin(null);
-    localStorage.removeItem("loginedUser");
-  };
-  useEffect(() => {
-    setUsersToState();
-    setLoginUserToState();
-  }, []);
+// export const UserProvider = ({ children }) => {
+//   const [users, setUsers] = useState([]);
+//   const [isLogin, setIsLogin] = useState(null);
 
-  const setUsersToState = () => {
-    setUsers(
-      localStorage.getItem("users")
-        ? JSON.parse(localStorage.getItem("users"))
-        : []
-    );
-  };
+//   const handleLogin = (user) => {
+//     localStorage.setItem("loginedUser", JSON.stringify(user));
+//     setIsLogin(user);
+//   };
+//   const setLoginUserToState = () => {
+//     setIsLogin(
+//       localStorage.getItem("loginedUser")
+//         ? JSON.parse(localStorage.getItem("loginedUser"))
+//         : null
+//     );
+//   };
+//   const handleLogOut = () => {
+//     setIsLogin(null);
+//     localStorage.removeItem("loginedUser");
+//   };
+//   useEffect(() => {
+//     setUsersToState();
+//     setLoginUserToState();
+//   }, []);
 
-  const addUsers = async ({ login, name, password, email }) => {
-    const userInfo = {
-      login,
-      name,
-      password,
-      email,
-    };
+//   const setUsersToState = () => {
+//     setUsers(
+//       localStorage.getItem("users")
+//         ? JSON.parse(localStorage.getItem("users"))
+//         : []
+//     );
+//   };
 
-    const newUsers = [...(users || []), userInfo];
-    console.log(newUsers);
-    localStorage.setItem("users", JSON.stringify(newUsers));
-    setUsersToState();
-  };
+//   const addUsers = async ({ login, name, password, email }) => {
+//     const userInfo = {
+//       login,
+//       name,
+//       password,
+//       email,
+//     };
 
-  return (
-    <>
-      <UsersContext.Provider
-        value={{
-          isLogin,
-          handleLogin,
-          handleLogOut,
-          users,
-          addUsers,
-        }}
-      >
-        {children}
-      </UsersContext.Provider>
-    </>
-  );
-};
+//     const newUsers = [...(users || []), userInfo];
+//     console.log(newUsers);
+//     localStorage.setItem("users", JSON.stringify(newUsers));
+//     setUsersToState();
+//   };
 
-export default UsersContext;
+//   return (
+//     <>
+//       <UsersContext.Provider
+//         value={{
+//           isLogin,
+//           handleLogin,
+//           handleLogOut,
+//           users,
+//           addUsers,
+//         }}
+//       >
+//         {children}
+//       </UsersContext.Provider>
+//     </>
+//   );
+// };
+
+// export default UsersContext;
