@@ -117,7 +117,7 @@ const Profile = () => {
           </div>
           {/* Right Block */}
           <div className={styles.RightBlock}>
-            <h2 className={styles.Title}>Personal Details</h2>
+            <p className={styles.Title}>Personal Details</p>
             <form onSubmit={handleSubmit(onSubmit)} className={styles.Block}>
               <Controller
                 name="Name"
@@ -183,7 +183,7 @@ const Profile = () => {
                 Update
               </Button>
             </form>
-            <h2 className={styles.Title}>Address</h2>
+            <p className={styles.Title}>Address</p>
             <div className={styles.Block}>
               <TextField
                 color="primary"

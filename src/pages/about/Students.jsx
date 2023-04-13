@@ -1,5 +1,5 @@
-const { default: Layout } = require("@/components/layout/Layout");
-const { Container } = require("@mui/system");
+import Layout from "@/components/layout/Layout";
+import { Container } from "@mui/material";
 
 const Students = () => {
   return (
