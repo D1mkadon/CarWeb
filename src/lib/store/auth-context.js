@@ -2,18 +2,16 @@
 
 import { createContext } from "react";
 
-import { auth, db, storage } from "@/lib/firebase";
+import { auth, db } from "@/lib/firebase";
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-  updateProfile,
 } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { addDoc, collection, DataBase } from "firebase/firestore";
-import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
+import { addDoc, collection } from "firebase/firestore";
 
 export const authContext = createContext({
   user: null,
@@ -60,7 +58,6 @@ export default function AuthContextProvider({ children }) {
     createUser,
     logInUser,
     makeInfo,
-  
   };
 
   return <authContext.Provider value={values}>{children}</authContext.Provider>;

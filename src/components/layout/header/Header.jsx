@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
@@ -9,12 +10,14 @@ import CartContext from "../../../../context/CartContext";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import Welcome from "./Welcome/Welcome";
+import { authContext } from "@/lib/store/auth-context";
 const Header = () => {
   const { cart } = useContext(CartContext);
   const { pathname } = useRouter();
   const [btn, setBtn] = useState();
-  const [shadow, setShadow] = useState(false);
 
+  const [shadow, setShadow] = useState(false);
+  const { user } = useContext(authContext);
   useEffect(() => {
     const handleShadow = () => {
       if (window.scrollY >= 90) {
@@ -52,8 +55,17 @@ const Header = () => {
         >
           Store
         </Link>
+        {!user ? (
+          <Link
+            href="/login"
+            className={pathname === "/login" ? style.active : ""}
+          >
+            Login
+          </Link>
+        ) : (
+          <Welcome />
+        )}
 
-        <Welcome />
         <div className={style.cartBlock}>
           <Link style={{ lineHeight: 0 }} href="/Cart">
             <div>
