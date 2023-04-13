@@ -7,23 +7,23 @@ import { FaDiscord } from "react-icons/fa";
 import { useContext } from "react";
 import { authContext } from "@/lib/store/auth-context";
 export default function SocialsLogIn() {
-  const { data: session } = useSession();
-  const handleClickDiscord = async () => {
-    await signIn("discord", {
-      redirect: true,
-      callbackUrl: "/",
-    });
-  };
-  const handleClickGitHub = async () => {
-    await signIn("github", {
-      redirect: true,
-      callbackUrl: "/",
-    });
-  };
+  // const { data: session } = useSession();
+  // const handleClickDiscord = async () => {
+  //   await signIn("discord", {
+  //     redirect: true,
+  //     callbackUrl: "/",
+  //   });
+  // };
+  // const handleClickGitHub = async () => {
+  //   await signIn("github", {
+  //     redirect: true,
+  //     callbackUrl: "/",
+  //   });
+  // };
   const { googleLoginHandler } = useContext(authContext);
-  if (session) {
-    return null;
-  }
+  // if (session) {
+  //   return null;
+  // }
   return (
     <div className={styles.gitBlock}>
       <Button
@@ -33,7 +33,7 @@ export default function SocialsLogIn() {
       >
         Sign in with Google <GoogleIcon />
       </Button>
-      <Button
+      {/* <Button
         className={styles.button}
         variant="outlined"
         onClick={handleClickGitHub}
@@ -46,7 +46,7 @@ export default function SocialsLogIn() {
         onClick={handleClickDiscord}
       >
         Discord log in <FaDiscord style={{ width: 20, height: 20 }} />
-      </Button>
+      </Button> */}
     </div>
   );
 }
