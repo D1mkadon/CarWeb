@@ -12,7 +12,6 @@
   padding: 10px;
   a {
     color: #fff;
-    line-height: 72px;
     margin: 0 10px;
     transition: color 0.4s ease-in-out;
     padding: 20px 0;
@@ -22,21 +21,27 @@
     }
   }
 }
-.shadow {
-  width: 100%;
-  background-color: #1c1c1c;
-  position: fixed;
-  z-index: 3;
-  box-shadow: 1px 1px 14px 1px aquamarine;
-}
+
 .bars {
   display: none;
 }
 .div {
+  display: flex;
+  justify-content: center;
+  height: 130px;
   width: 100%;
   background-color: #1c1c1c;
   position: fixed;
   z-index: 3;
+  -webkit-transition: all 1s linear;
+  -moz-transition: all 1s linear;
+  -o-transition: all 1s linear;
+  transition: all 1s linear;
+}
+.shadow {
+  box-shadow: 1px 1px 14px 1px aquamarine;
+  height: 72px;
+  /* max-height: 72px; */
 }
 .cartBlock {
   color: #fff;

@@ -29,7 +29,7 @@ const Header = () => {
     window.addEventListener("scroll", handleShadow);
   }, []);
   return (
-    <div className={shadow ? style.shadow : style.div}>
+    <div className={shadow ? style.shadow + " " + style.div : style.div}>
       <header
         className={
           btn ? [style.header, style.activeHeader].join(" ") : [style.header]
