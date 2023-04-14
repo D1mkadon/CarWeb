@@ -1,3 +1,4 @@
+"use client";
 import {
   Button,
   CircularProgress,
@@ -13,14 +14,17 @@ import styles from "./Profile.module.scss";
 import { Controller, useForm } from "react-hook-form";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
-import { storage } from "@/lib/firebase";
+import { db, storage } from "@/lib/firebase";
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
+
 const Profile = () => {
   const [photoURL, setPhotoURL] = useState(
     "https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png"
   );
   const [photo, setPhoto] = useState(null);
+  const [profileInfo, setProfileInfo] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { user, makeInfo } = useContext(authContext);
+  const { user } = useContext(authContext);
   const { handleSubmit, control, reset, formState, error } = useForm({
     defaultValues: {
       Name: "",
@@ -29,14 +33,16 @@ const Profile = () => {
       WebsiteURL: "",
     },
   });
+  const docRef = doc(db, "users", `${user.uid}`);
+
   const onSubmit = async (data) => {
-    await makeInfo(data.Name, data.SecondName, data.BirthDate, data.WebsiteURL)
-      .then((docRef) => {
-        console.log(docRef.id); //id
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    await setDoc(docRef, {
+      Email: user.email,
+      Name: data.Name,
+      SecondName: data.SecondName,
+      BirthDate: data.BirthDate,
+      WebsiteURL: data.WebsiteURL,
+    });
   };
   const upload = async () => {
     const fileRef = ref(storage, user.uid + ".png");
@@ -62,10 +68,18 @@ const Profile = () => {
       reset({ UserName: "", email: "", password: "" });
     }
   }, [formState, reset]);
+
   useEffect(() => {
     if (user?.photoURL) {
       setPhotoURL(user.photoURL);
     }
+    const unsub = onSnapshot(
+      docRef,
+      { includeMetadataChanges: true },
+      (doc) => {
+        setProfileInfo(doc.data());
+      }
+    );
   }, [user]);
 
   return (
@@ -110,9 +124,20 @@ const Profile = () => {
             </h3>
             <h4 className={styles.LeftEmail}>{user.email}</h4>
             <h2 className={styles.Title}>About</h2>
-            <span>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla,
-              voluptate?
+            <span className={styles.description}>
+              {profileInfo?.Name ? profileInfo?.Name : "Your Name"} <br />
+              {profileInfo?.SecondName
+                ? profileInfo?.SecondName
+                : "Your SecondName"}
+              <br />
+              {profileInfo?.BirthDate
+                ? profileInfo?.BirthDate
+                : "Your BirthDate"}
+              <br />
+              {profileInfo?.WebsiteURL
+                ? profileInfo?.WebsiteURL
+                : "Your WebsiteURL"}
+              <br />
             </span>
           </div>
           {/* Right Block */}
@@ -126,7 +151,7 @@ const Profile = () => {
                   <TextField
                     color="primary"
                     id="form-Name"
-                    label={user?.displayName ? user?.displayName : "Name"}
+                    label={"Name"}
                     variant="outlined"
                     name="Name"
                     onChange={(e) => field.onChange(e)}
@@ -213,7 +238,7 @@ const Profile = () => {
                 variant="outlined"
                 name="ZipCode"
               />
-              <Button type="submit" variant="outlined">
+              <Button disabled type="submit" variant="outlined">
                 Update
               </Button>
             </div>

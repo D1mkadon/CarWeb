@@ -1,14 +1,10 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { collection, doc, getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import {getStorage} from 'firebase/storage'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getStorage } from "firebase/storage";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyABpNirTFuJ2EPF2TLDwlFg_taA-kitJDQ",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: "car-project-bbc44.firebaseapp.com",
   projectId: "car-project-bbc44",
   storageBucket: "car-project-bbc44.appspot.com",
@@ -17,10 +13,9 @@ const firebaseConfig = {
   measurementId: "G-R81BT7H1BX",
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
-const storage = getStorage()
+const storage = getStorage();
 
-export { app, db, auth,storage };
+export { app, db, auth, storage };

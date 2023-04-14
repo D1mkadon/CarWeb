@@ -14,6 +14,8 @@ import { useContext } from "react";
 import { useRouter } from "next/router";
 import { authContext } from "@/lib/store/auth-context";
 import { updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 const RegisterPage = () => {
   const { user, createUser } = useContext(authContext);
   // const { addUsers } = useContext(UsersContext);
@@ -55,6 +57,10 @@ const RegisterPage = () => {
     createUser(data.email, data.password)
       .then((userCredential) => {
         const user = userCredential.user;
+        setDoc(doc(db, "users", user.uid), {
+          name: data.name,
+          email: data.email,
+        });
         updateProfile(user, { displayName: data.name });
         router.push("/profile", undefined, { shallow: true });
         setOpen({

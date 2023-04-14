@@ -1,7 +1,11 @@
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import DiscordProvider from "next-auth/providers/discord";
+import { FirestoreAdapter } from "@next-auth/firebase-adapter";
+
 import GoogleProvider from "next-auth/providers/google";
+import { db } from "@/lib/firebase";
+import * as firebaseFunctions from "firebase/firestore";
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
@@ -20,6 +24,7 @@ export const authOptions = {
 
     // ...add more providers here
   ],
+  adapter: FirestoreAdapter({ db: db, ...firebaseFunctions }),
   secret: process.env.JWT_SECRET,
   pages: {
     signIn: "/login",

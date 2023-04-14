@@ -1,8 +1,8 @@
 "use client";
 
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
-import { auth, db } from "@/lib/firebase";
+import { auth, db, docRef } from "@/lib/firebase";
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
@@ -11,7 +11,6 @@ import {
   signOut,
 } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { addDoc, collection } from "firebase/firestore";
 import { useRouter } from "next/router";
 
 export const authContext = createContext({
@@ -23,8 +22,9 @@ export const authContext = createContext({
 
 export default function AuthContextProvider({ children }) {
   const [user, loading] = useAuthState(auth);
+
   const router = useRouter();
-  const PersonalDetailsRef = collection(db, `PersonalDetails`);
+
   const googleProvider = new GoogleAuthProvider(auth);
   const googleLoginHandler = async () => {
     try {
@@ -44,15 +44,6 @@ export default function AuthContextProvider({ children }) {
   const logout = () => {
     signOut(auth);
   };
-  const makeInfo = (Name, SecondName, BirthDate, WebsiteURL) => {
-    return addDoc(PersonalDetailsRef, {
-      id: user.uid,
-      Name: Name,
-      SecondName: SecondName,
-      BirthDate: BirthDate,
-      WebsiteURL: WebsiteURL,
-    });
-  };
 
   const values = {
     user,
@@ -61,7 +52,6 @@ export default function AuthContextProvider({ children }) {
     logout,
     createUser,
     logInUser,
-    makeInfo,
   };
 
   return <authContext.Provider value={values}>{children}</authContext.Provider>;
