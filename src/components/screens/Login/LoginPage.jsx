@@ -1,17 +1,10 @@
-import { Alert, Button, Container, Snackbar, TextField } from "@mui/material";
+import { Button, Container, TextField } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { Controller, useForm, useFormState } from "react-hook-form";
 import styles from "../Register/RegisterPage.module.scss";
-import {
-  emailValidation,
-  loginValidation,
-  passwordValidation,
-} from "@/validation/validation";
+import { emailValidation, passwordValidation } from "@/validation/validation";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 import SocialsLogIn from "./Socials/socialsLogIn";
-
-// import UsersContext from "../../../../context/UserContext";
 import { useRouter } from "next/router";
 import AlertBox from "@/components/Alert/AlertBox";
 import { authContext } from "@/lib/store/auth-context";
@@ -23,7 +16,6 @@ const LoginPage = () => {
       password: "",
     },
   });
-  // const { handleLogin, isLogin, handleAlert } = useContext(UsersContext);
   const [open, setOpen] = useState({
     open: false,
     type: "success",
@@ -31,27 +23,15 @@ const LoginPage = () => {
   });
   const { user, logInUser } = useContext(authContext);
   const router = useRouter();
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen({ open: false, type: open.type, text: open.text });
-  };
   const { errors } = useFormState({ control });
+
   const onSubmit = async (inputs) => {
-    await logInUser(inputs.email, inputs.password)
-      .then((userCredential) => {
-        setOpen({
-          open: true,
-          type: "success",
-          text: "Approved registration",
-        });
-        router.push("/profile", undefined, { shallow: true });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      await logInUser(inputs.email, inputs.password);
+      setOpen({ type: "success", text: "Approved registration", open: true });
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     if (formState.isSubmitSuccessful) {
@@ -117,6 +97,8 @@ const LoginPage = () => {
         <AlertBox open={open.open} text={open.text} type={open.type} />
       </Container>
     );
+  } else {
+    router.push("/profile", undefined, { shallow: true });
   }
 };
 

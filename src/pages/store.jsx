@@ -5,19 +5,21 @@ import Layout from "@/components/layout/Layout";
 import { useState } from "react";
 import Sort from "@/components/screens/store/Sort";
 import { motion } from "framer-motion";
+const MAX_WIDTH = "xl";
 const storePage = ({ cars }) => {
   const [data, setData] = useState(cars);
-  const sortByDefault = () => {
+  const sortCarsByDefault = () => {
+    if (data === cars) return;
     setData(cars);
   };
 
-  const sortByLowPrice = () => {
-    const temp = JSON.parse(JSON.stringify(cars));
+  const sortCarsByLowPrice = () => {
+    const temp = [...cars];
     temp.sort((a, b) => (a.price > b.price ? 1 : -1));
     setData(temp);
   };
-  const sortByHighPrice = () => {
-    const temp = JSON.parse(JSON.stringify(cars));
+  const sortCarsByHighPrice = () => {
+    const temp = [...cars];
     temp.sort((a, b) => (a.price < b.price ? 1 : -1));
     setData(temp);
   };
@@ -38,11 +40,11 @@ const storePage = ({ cars }) => {
           duration: 0.75,
         }}
       >
-        <Container maxWidth="xl">
+        <Container sx={{ marginTop: "10%" }} maxWidth={MAX_WIDTH}>
           <Sort
-            sortByPrice={sortByLowPrice}
-            sortByHighPrice={sortByHighPrice}
-            sortByDefault={sortByDefault}
+            sortByPrice={sortCarsByLowPrice}
+            sortByHighPrice={sortCarsByHighPrice}
+            sortByDefault={sortCarsByDefault}
           />
           <Store cars={data} />
         </Container>

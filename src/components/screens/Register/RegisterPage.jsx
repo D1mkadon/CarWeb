@@ -18,26 +18,16 @@ import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 const RegisterPage = () => {
   const { user, createUser } = useContext(authContext);
-  // const { addUsers } = useContext(UsersContext);
   const router = useRouter();
-  const {
-    register,
-    setError,
-    handleSubmit,
-    clearErrors,
-    watch,
-    control,
-    reset,
-    formState,
-    error,
-  } = useForm({
-    defaultValues: {
-      UserName: "",
-      email: "",
-      password: "",
-      name: "",
-    },
-  });
+  const { setError, handleSubmit, clearErrors, control, reset, formState } =
+    useForm({
+      defaultValues: {
+        UserName: "",
+        email: "",
+        password: "",
+        name: "",
+      },
+    });
   const { errors } = useFormState({ control });
   const [open, setOpen] = useState({
     open: false,
@@ -84,8 +74,6 @@ const RegisterPage = () => {
     }
   }, [formState, reset]);
   if (user) {
-    router.push("/profile", undefined, { shallow: true });
-    // return <p>redirect</p>;
   }
 
   return (

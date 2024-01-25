@@ -55,6 +55,7 @@ const HomePage = () => {
         className={styles.BlockSecondImage}
       >
         <div className={styles.SmallBackground}>
+          <div></div>
           <div className={styles.SecondImage}>
             <div className={styles.LeftSmallBlocks}>
               <h2 className={styles.LeftH2}> AMG GT S </h2>
