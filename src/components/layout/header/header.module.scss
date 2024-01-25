@@ -13,6 +13,8 @@
   a {
     color: #fff;
     margin: 0 10px;
+    font-size: 20px;
+    line-height: 72px;
     transition: color 0.4s ease-in-out;
     padding: 20px 0;
     &:hover,
@@ -41,7 +43,6 @@
 .shadow {
   box-shadow: 1px 1px 14px 1px aquamarine;
   height: 72px;
-  /* max-height: 72px; */
 }
 .cartBlock {
   color: #fff;
